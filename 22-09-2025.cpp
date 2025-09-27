@@ -1,43 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <functional>
-#include <conio.h>
-#include <curses.h>
 #include <iomanip>
-
-class InteractiveMenu {
-private:
-    std::vector<std::pair<std::string, std::function<void()>>> functions;
-
-public:
-    void addFunction(const std::string& name, std::function<void()> func) {
-        functions.push_back({name, func});
-    }
-    void show() {
-        while(true) {
-            system("cls");
-            
-            std::cout << "=== МЕНЮ ФУНКЦИЙ ===\n\n";
-            for(size_t i = 0; i < functions.size(); i++) {
-                std::cout << i + 1 << ". " << functions[i].first << "\n";
-            }
-            std::cout << "0. Выход\n\n";
-            std::cout << "Выберите номер функции: ";
-            
-            char choice;
-            std::cin >> choice;
-            
-            if(choice == '0') break;
-            
-            int index = choice - '1';
-            if(index >= 0 && index < functions.size()) {
-                functions[index].second();
-                std::cout << "\nНажмите любую клавишу для продолжения...";
-                getch();
-            }
-        }
-    }
-};
 
 void TASK1() { 
   using namespace std;
@@ -136,16 +99,30 @@ void TASK3() {
   cout << "| 95         | " << setw(11) << price95 << " | " << setw(8) << cost95 << " |" << endl;
   cout << "| 100        | " << setw(11) << price100 << " | " << setw(8) << cost100 << " |" << endl;
   cout << "----------------------------------------" << endl;
+
+  return 0;
 }
 
 int main() {
   using namespace std;
-  InteractiveMenu menu;
-  
-  menu.addFunction("ЗАДАНИЕ 1", hello);
-  menu.addFunction("ЗАДАНИЕ 2", calculate);
-  menu.addFunction("ЗАДАНИЕ 3", goodbye);
-  
-  menu.show();
+  int buffer;
+  cout << "Выберите задание (1 - 3): "
+  cout.flush();
+  cin >> buffer;
+
+  if (buffer == 1) {
+      TASK1();
+  }
+  else if (buffer == 2) {
+      TASK2();
+  }
+
+  else if (buffer == 3) {
+      TASK3();
+  }
+
+  else {
+      cout  << "Введите число от 1 до 3!";
+  }
   return 0;
 }
